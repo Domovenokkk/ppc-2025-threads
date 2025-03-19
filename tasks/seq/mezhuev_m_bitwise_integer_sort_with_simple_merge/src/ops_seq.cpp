@@ -2,8 +2,7 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <iostream>
-#include <ranges>
+#include <vector>
 
 namespace mezhuev_m_bitwise_integer_sort_seq {
 
