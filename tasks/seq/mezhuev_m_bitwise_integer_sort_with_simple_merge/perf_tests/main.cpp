@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <memory>
 #include <vector>
 
@@ -11,16 +12,15 @@
 #include "core/task/include/task.hpp"
 #include "seq/mezhuev_m_bitwise_integer_sort_with_simple_merge/include/ops_seq.hpp"
 
-namespace mezhuev_m_bitwise_integer_sort_seq {
-
 TEST(mezhuev_m_bitwise_integer_sort_seq_test, test_pipeline_run) {
   constexpr int kCount = 1500;
 
   std::vector<int> in(kCount * kCount, 0);
   std::vector<int> out(kCount * kCount, 0);
 
+  // Replace rand() with std::rand()
   for (size_t i = 0; i < kCount; i++) {
-    in[i] = rand() % 1000 - 500;
+    in[i] = std::rand() % 1000 - 500;  // Use std::rand instead of rand
   }
 
   auto task_data_seq = std::make_shared<ppc::core::TaskData>();
@@ -47,7 +47,10 @@ TEST(mezhuev_m_bitwise_integer_sort_seq_test, test_pipeline_run) {
   ppc::core::Perf::PrintPerfStatistic(perf_results);
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+
+  // Replace std::sort with std::ranges::sort
+  std::ranges::sort(expected);  // Use ranges-based sort
+
   ASSERT_EQ(expected, out);
 }
 
@@ -57,8 +60,9 @@ TEST(mezhuev_m_bitwise_integer_sort_seq_test, test_task_run) {
   std::vector<int> in(kCount * kCount, 0);
   std::vector<int> out(kCount * kCount, 0);
 
+  // Replace rand() with std::rand()
   for (size_t i = 0; i < kCount; i++) {
-    in[i] = rand() % 1000 - 500;
+    in[i] = std::rand() % 1000 - 500;  // Use std::rand instead of rand
   }
 
   auto task_data_seq = std::make_shared<ppc::core::TaskData>();
@@ -85,8 +89,9 @@ TEST(mezhuev_m_bitwise_integer_sort_seq_test, test_task_run) {
   ppc::core::Perf::PrintPerfStatistic(perf_results);
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+
+  // Replace std::sort with std::ranges::sort
+  std::ranges::sort(expected);  // Use ranges-based sort
+
   ASSERT_EQ(expected, out);
 }
-
-}  // namespace mezhuev_m_bitwise_integer_sort_seq

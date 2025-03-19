@@ -1,7 +1,10 @@
 #include <gtest/gtest.h>
 
+#include <cstdint>
+#include <memory>
 #include <vector>
 
+#include "core/task/include/task.hpp"
 #include "seq/mezhuev_m_bitwise_integer_sort_with_simple_merge/include/ops_seq.hpp"
 
 TEST(mezhuev_m_bitwise_integer_sort_seq, TestEmptyArray) {
