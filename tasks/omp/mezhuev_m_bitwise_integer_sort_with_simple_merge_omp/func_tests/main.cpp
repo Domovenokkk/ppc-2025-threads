@@ -8,6 +8,7 @@
 #include "core/task/include/task.hpp"
 #include "omp/mezhuev_m_bitwise_integer_sort_with_simple_merge_omp/include/ops_omp.hpp"
 
+// tests
 TEST(mezhuev_m_bitwise_integer_sort_omp, test_sort_small_input) {
   constexpr size_t kCount = 5;
   std::vector<int> input = {5, 3, 8, 1, 4};
