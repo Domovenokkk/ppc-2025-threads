@@ -1,12 +1,11 @@
 #include <gtest/gtest.h>
 
-#include <algorithm>
 #include <cstddef>
-#include <iostream>
+#include <cstdint>
+#include <memory>
 #include <vector>
 
 #include "core/task/include/task.hpp"
-#include "core/util/include/util.hpp"
 #include "omp/mezhuev_m_bitwise_integer_sort_with_simple_merge_omp/include/ops_omp.hpp"
 
 TEST(mezhuev_m_bitwise_integer_sort_omp, test_sort_small_input) {
