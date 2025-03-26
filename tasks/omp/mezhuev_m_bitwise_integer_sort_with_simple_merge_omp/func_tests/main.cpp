@@ -53,7 +53,6 @@ TEST(mezhuev_m_bitwise_integer_sort_omp, test_sort_empty_input) {
 }
 
 TEST(mezhuev_m_bitwise_integer_sort_omp, test_sort_single_element) {
-
   constexpr size_t kCount = 1;
   std::vector<int> input = {42};
   std::vector<int> expected_output = {42};
@@ -96,7 +95,6 @@ TEST(mezhuev_m_bitwise_integer_sort_omp, test_sort_all_same_elements) {
 
   EXPECT_EQ(output, expected_output);
 }
-
 
 TEST(mezhuev_m_bitwise_integer_sort_omp, test_sort_large_numbers) {
   constexpr size_t kCount = 6;
