@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <memory>
 #include <vector>
 
@@ -43,7 +44,7 @@ TEST(mezhuev_m_bitwise_integer_sort_with_simple_merge_omp, test_pipeline_run) {
 
   ppc::core::Perf::PrintPerfStatistic(perf_results);
 
-  ASSERT_TRUE(std::is_sorted(out.begin(), out.end()));
+  ASSERT_TRUE(std::ranges::is_sorted(out.begin(), out.end()));
 }
 
 TEST(mezhuev_m_bitwise_integer_sort_with_simple_merge_omp, test_task_run) {
@@ -78,5 +79,5 @@ TEST(mezhuev_m_bitwise_integer_sort_with_simple_merge_omp, test_task_run) {
 
   ppc::core::Perf::PrintPerfStatistic(perf_results);
 
-  ASSERT_TRUE(std::is_sorted(out.begin(), out.end()));
+  ASSERT_TRUE(std::ranges::is_sorted(out.begin(), out.end()));
 }

@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <iostream>
 #include <vector>
 
 namespace mezhuev_m_bitwise_integer_sort_omp {
@@ -20,7 +19,7 @@ bool SortOpenMP::PreProcessingImpl() {
   unsigned int output_size = task_data->outputs_count[0];
   output_ = std::vector<int>(output_size, 0);
 
-  max_value_ = *std::max_element(input_.begin(), input_.end(), [](int a, int b) { return std::abs(a) < std::abs(b); });
+  max_value_ = *std::ranges::max_element(input_, [](int a, int b) { return std::abs(a) < std::abs(b); });
   max_value_ = std::abs(max_value_);
 
   return true;
@@ -45,9 +44,11 @@ bool SortOpenMP::RunImpl() {
   }
 
   auto radix_sort = [](std::vector<int>& arr) {
-    if (arr.empty()) return;
+    if (arr.empty()) {
+      return;
+    }
 
-    int max_num = *std::max_element(arr.begin(), arr.end());
+    int max_num = *std::ranges::max_element(arr);
 
     for (int exp = 1; max_num / exp > 0; exp *= 10) {
       std::vector<int> output(arr.size());
@@ -88,7 +89,7 @@ bool SortOpenMP::RunImpl() {
   radix_sort(positive);
   radix_sort(negative);
 
-  std::reverse(negative.begin(), negative.end());
+  std::ranges::reverse(negative);
   for (int& num : negative) {
     num = -num;
   }
@@ -106,7 +107,7 @@ bool SortOpenMP::PostProcessingImpl() {
   }
 
   auto* out_ptr = reinterpret_cast<int*>(task_data->outputs[0]);
-  std::copy(output_.begin(), output_.end(), out_ptr);
+  std::ranges::copy(output_, out_ptr);
   return true;
 }
 
