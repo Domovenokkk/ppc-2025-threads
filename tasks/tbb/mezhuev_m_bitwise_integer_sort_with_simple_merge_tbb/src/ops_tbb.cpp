@@ -4,14 +4,54 @@
 
 #include <algorithm>
 #include <cmath>
-#include <ranges>
+#include <cstddef>
 #include <vector>
 
-#include "core/task/include/task.hpp"
 #include "oneapi/tbb/task_arena.h"
 #include "oneapi/tbb/task_group.h"
 
 namespace mezhuev_m_bitwise_integer_sort_tbb {
+
+void SeparateNumbers(const std::vector<int>& input, std::vector<int>& negative, std::vector<int>& positive) {
+  for (int num : input) {
+    if (num < 0) {
+      negative.push_back(-num);
+    } else {
+      positive.push_back(num);
+    }
+  }
+}
+
+void RadixSort(std::vector<int>& data, int exp) {
+  std::vector<int> count(10, 0);
+  std::vector<int> output(data.size());
+
+  for (size_t i = 0; i < data.size(); ++i) {
+    int digit = (data[i] / exp) % 10;
+    count[digit]++;
+  }
+
+  for (int i = 1; i < 10; ++i) {
+    count[i] += count[i - 1];
+  }
+
+  for (size_t i = data.size() - 1; i < data.size(); --i) {
+    int digit = (data[i] / exp) % 10;
+    output[--count[digit]] = data[i];
+  }
+
+  for (size_t i = 0; i < data.size(); ++i) {
+    data[i] = output[i];
+  }
+}
+
+void ProcessNumbers(std::vector<int>& numbers, int max_value) {
+  int exp = 1;
+  while (max_value / exp > 0) {
+    RadixSort(numbers, exp);
+    exp *= 10;
+  }
+}
 
 bool SortTBB::PreProcessingImpl() {
   unsigned int input_size = task_data->inputs_count[0];
@@ -43,73 +83,14 @@ bool SortTBB::RunImpl() {
   std::vector<int> negative;
   std::vector<int> positive;
 
-  for (int num : input_) {
-    if (num < 0) {
-      negative.push_back(-num);
-    } else {
-      positive.push_back(num);
-    }
-  }
+  SeparateNumbers(input_, negative, positive);
 
   oneapi::tbb::task_arena arena(1);
   arena.execute([&] {
     tbb::task_group tg;
 
-    tg.run([&] {
-      int exp = 1;
-      while (max_value_ / exp > 0) {
-        std::vector<int> count(10, 0);
-        std::vector<int> output(positive.size());
-
-        for (int i = 0; i < static_cast<int>(positive.size()); ++i) {
-          int digit = (positive[i] / exp) % 10;
-          count[digit]++;
-        }
-
-        for (int j = 1; j < 10; ++j) {
-          count[j] += count[j - 1];
-        }
-
-        for (int i = positive.size() - 1; i >= 0; --i) {
-          int digit = (positive[i] / exp) % 10;
-          output[--count[digit]] = positive[i];
-        }
-
-        for (int i = 0; i < static_cast<int>(positive.size()); ++i) {
-          positive[i] = output[i];
-        }
-
-        exp *= 10;
-      }
-    });
-
-    tg.run([&] {
-      int exp = 1;
-      while (max_value_ / exp > 0) {
-        std::vector<int> count(10, 0);
-        std::vector<int> output(negative.size());
-
-        for (int i = 0; i < static_cast<int>(negative.size()); ++i) {
-          int digit = (negative[i] / exp) % 10;
-          count[digit]++;
-        }
-
-        for (int j = 1; j < 10; ++j) {
-          count[j] += count[j - 1];
-        }
-
-        for (int i = negative.size() - 1; i >= 0; --i) {
-          int digit = (negative[i] / exp) % 10;
-          output[--count[digit]] = negative[i];
-        }
-
-        for (int i = 0; i < static_cast<int>(negative.size()); ++i) {
-          negative[i] = output[i];
-        }
-
-        exp *= 10;
-      }
-    });
+    tg.run([&] { ProcessNumbers(positive, max_value_); });
+    tg.run([&] { ProcessNumbers(negative, max_value_); });
 
     tg.wait();
   });

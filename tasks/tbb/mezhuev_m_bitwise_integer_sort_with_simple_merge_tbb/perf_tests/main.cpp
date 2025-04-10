@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <memory>
 #include <vector>
 
@@ -12,7 +13,7 @@
 #include "tbb/mezhuev_m_bitwise_integer_sort_with_simple_merge_tbb/include/ops_tbb.hpp"
 
 TEST(mezhuev_m_bitwise_integer_sort_tbb, test_pipeline_run) {
-  constexpr int kCount = 100000;
+  constexpr int kCount = 150000;
 
   std::vector<int> in(kCount, 0);
   std::vector<int> out(kCount, 0);
@@ -46,12 +47,12 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_pipeline_run) {
   ppc::core::Perf::PrintPerfStatistic(perf_results);
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+  std::ranges::sort(expected);
   ASSERT_EQ(expected, out);
 }
 
 TEST(mezhuev_m_bitwise_integer_sort_tbb, test_task_run) {
-  constexpr int kCount = 100000;
+  constexpr int kCount = 150000;
 
   std::vector<int> in(kCount, 0);
   std::vector<int> out(kCount, 0);
@@ -85,6 +86,6 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_task_run) {
   ppc::core::Perf::PrintPerfStatistic(perf_results);
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+  std::ranges::sort(expected);
   ASSERT_EQ(expected, out);
 }

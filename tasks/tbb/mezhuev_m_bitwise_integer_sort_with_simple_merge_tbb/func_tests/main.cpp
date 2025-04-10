@@ -3,14 +3,11 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
-#include <fstream>
-#include <iostream>
+#include <cstdlib>
 #include <memory>
-#include <string>
 #include <vector>
 
 #include "core/task/include/task.hpp"
-#include "core/util/include/util.hpp"
 #include "tbb/mezhuev_m_bitwise_integer_sort_with_simple_merge_tbb/include/ops_tbb.hpp"
 
 TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_ascending) {
@@ -20,7 +17,7 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_ascending) {
   std::vector<int> out(kCount, 0);
 
   for (size_t i = 0; i < kCount; i++) {
-    in[i] = i;
+    in[i] = static_cast<int>(i);
   }
 
   auto task_data_tbb = std::make_shared<ppc::core::TaskData>();
@@ -65,7 +62,7 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_random) {
   test_task_tbb.PostProcessing();
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+  std::ranges::sort(expected);
   EXPECT_EQ(expected, out);
 }
 
@@ -97,7 +94,7 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_reverse) {
   std::vector<int> out(kCount, 0);
 
   for (size_t i = 0; i < kCount; i++) {
-    in[i] = kCount - i - 1;
+    in[i] = static_cast<int>(kCount - i - 1);
   }
 
   auto task_data_tbb = std::make_shared<ppc::core::TaskData>();
@@ -115,7 +112,7 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_reverse) {
   test_task_tbb.PostProcessing();
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+  std::ranges::sort(expected);
   EXPECT_EQ(expected, out);
 }
 
@@ -144,7 +141,7 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_large) {
   test_task_tbb.PostProcessing();
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+  std::ranges::sort(expected);
   EXPECT_EQ(expected, out);
 }
 
@@ -248,7 +245,7 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_mixed_numbers) {
 
   for (size_t i = 0; i < kCount / 2; i++) {
     in[i] = rand() % 10000;
-    in[i + kCount / 2] = -(rand() % 10000);
+    in[i + (kCount / 2)] = -(rand() % 10000);
   }
 
   auto task_data_tbb = std::make_shared<ppc::core::TaskData>();
@@ -266,6 +263,6 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_mixed_numbers) {
   test_task_tbb.PostProcessing();
 
   std::vector<int> expected = in;
-  std::sort(expected.begin(), expected.end());
+  std::ranges::sort(expected);
   EXPECT_EQ(expected, out);
 }
