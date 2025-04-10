@@ -12,6 +12,7 @@
 
 namespace mezhuev_m_bitwise_integer_sort_tbb {
 
+namespace {
 static void SeparateNumbers(const std::vector<int>& input, std::vector<int>& negative, std::vector<int>& positive) {
   for (int num : input) {
     if (num < 0) {
@@ -52,6 +53,8 @@ static void ProcessNumbers(std::vector<int>& numbers, int max_value) {
     exp *= 10;
   }
 }
+
+}  // namespace
 
 bool SortTBB::PreProcessingImpl() {
   unsigned int input_size = task_data->inputs_count[0];
