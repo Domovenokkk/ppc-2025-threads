@@ -1,9 +1,10 @@
 #include "tbb/mezhuev_m_bitwise_integer_sort_with_simple_merge_tbb/include/ops_tbb.hpp"
 
+#include <tbb/tbb.h>
+
 #include <algorithm>
 #include <cmath>
 #include <ranges>
-#include <tbb/tbb.h>
 #include <vector>
 
 #include "core/task/include/task.hpp"

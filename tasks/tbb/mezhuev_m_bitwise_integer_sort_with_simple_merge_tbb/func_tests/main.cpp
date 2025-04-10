@@ -148,7 +148,6 @@ TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_large) {
   EXPECT_EQ(expected, out);
 }
 
-
 TEST(mezhuev_m_bitwise_integer_sort_tbb, test_sort_all_equal) {
   constexpr size_t kCount = 100;
 
