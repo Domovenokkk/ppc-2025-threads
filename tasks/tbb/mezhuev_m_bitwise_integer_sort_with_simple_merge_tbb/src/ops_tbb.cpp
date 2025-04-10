@@ -12,7 +12,7 @@
 
 namespace mezhuev_m_bitwise_integer_sort_tbb {
 
-void SeparateNumbers(const std::vector<int>& input, std::vector<int>& negative, std::vector<int>& positive) {
+static void SeparateNumbers(const std::vector<int>& input, std::vector<int>& negative, std::vector<int>& positive) {
   for (int num : input) {
     if (num < 0) {
       negative.push_back(-num);
@@ -22,7 +22,7 @@ void SeparateNumbers(const std::vector<int>& input, std::vector<int>& negative, 
   }
 }
 
-void RadixSort(std::vector<int>& data, int exp) {
+static void RadixSort(std::vector<int>& data, int exp) {
   std::vector<int> count(10, 0);
   std::vector<int> output(data.size());
 
@@ -45,7 +45,7 @@ void RadixSort(std::vector<int>& data, int exp) {
   }
 }
 
-void ProcessNumbers(std::vector<int>& numbers, int max_value) {
+static void ProcessNumbers(std::vector<int>& numbers, int max_value) {
   int exp = 1;
   while (max_value / exp > 0) {
     RadixSort(numbers, exp);
