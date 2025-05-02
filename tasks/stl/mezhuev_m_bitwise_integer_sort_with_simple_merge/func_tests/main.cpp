@@ -1,9 +1,10 @@
 #include <gtest/gtest.h>
-#include <vector>
-#include <memory>
-#include <iostream>
+
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <memory>
+#include <vector>
 
 #include "core/task/include/task.hpp"
 #include "stl/mezhuev_m_bitwise_integer_sort_with_simple_merge/include/ops_stl.hpp"
@@ -224,9 +225,9 @@ TEST(mezhuev_m_bitwise_integer_sort_stl, test_sort_random) {
   }
 
   auto task_data_stl = std::make_shared<ppc::core::TaskData>();
-  task_data_stl->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
+  task_data_stl->inputs.emplace_back(reinterpret_cast<uint8_t*>(in.data()));
   task_data_stl->inputs_count.emplace_back(in.size());
-  task_data_stl->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
+  task_data_stl->outputs.emplace_back(reinterpret_cast<uint8_t*>(out.data()));
   task_data_stl->outputs_count.emplace_back(out.size());
 
   mezhuev_m_bitwise_integer_sort_stl::SortSTL test_task_stl(task_data_stl);

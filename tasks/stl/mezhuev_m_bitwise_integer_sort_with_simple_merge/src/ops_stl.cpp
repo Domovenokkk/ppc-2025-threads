@@ -1,11 +1,11 @@
 #include "stl/mezhuev_m_bitwise_integer_sort_with_simple_merge/include/ops_stl.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <functional>
 #include <thread>
 #include <vector>
-#include <algorithm>
-#include <functional>
 
 namespace mezhuev_m_bitwise_integer_sort_stl {
 

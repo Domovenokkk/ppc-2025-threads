@@ -23,9 +23,9 @@ TEST(mezhuev_m_bitwise_integer_sort_stl, test_pipeline_run) {
   }
 
   auto task_data_stl = std::make_shared<ppc::core::TaskData>();
-  task_data_stl->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
+  task_data_stl->inputs.emplace_back(reinterpret_cast<uint8_t*>(in.data()));
   task_data_stl->inputs_count.emplace_back(in.size());
-  task_data_stl->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
+  task_data_stl->outputs.emplace_back(reinterpret_cast<uint8_t*>(out.data()));
   task_data_stl->outputs_count.emplace_back(out.size());
 
   auto test_task_stl = std::make_shared<mezhuev_m_bitwise_integer_sort_stl::SortSTL>(task_data_stl);
@@ -62,9 +62,9 @@ TEST(mezhuev_m_bitwise_integer_sort_stl, test_task_run) {
   }
 
   auto task_data_stl = std::make_shared<ppc::core::TaskData>();
-  task_data_stl->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
+  task_data_stl->inputs.emplace_back(reinterpret_cast<uint8_t*>(in.data()));
   task_data_stl->inputs_count.emplace_back(in.size());
-  task_data_stl->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
+  task_data_stl->outputs.emplace_back(reinterpret_cast<uint8_t*>(out.data()));
   task_data_stl->outputs_count.emplace_back(out.size());
 
   auto test_task_stl = std::make_shared<mezhuev_m_bitwise_integer_sort_stl::SortSTL>(task_data_stl);
