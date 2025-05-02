@@ -70,9 +70,7 @@ bool SortSTL::PreProcessingImpl() {
   return true;
 }
 
-bool SortSTL::ValidationImpl() { 
-  return task_data->inputs_count[0] == task_data->outputs_count[0]; 
-}
+bool SortSTL::ValidationImpl() { return task_data->inputs_count[0] == task_data->outputs_count[0]; }
 
 bool SortSTL::RunImpl() {
   if (input_.empty()) {

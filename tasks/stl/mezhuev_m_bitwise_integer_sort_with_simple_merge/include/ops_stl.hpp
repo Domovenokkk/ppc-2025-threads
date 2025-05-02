@@ -6,6 +6,7 @@
 #include "core/task/include/task.hpp"
 
 namespace mezhuev_m_bitwise_integer_sort_stl {
+
 class SortSTL : public ppc::core::Task {
  public:
   explicit SortSTL(ppc::core::TaskDataPtr task_data) : Task(std::move(task_data)) {}
@@ -23,4 +24,5 @@ class SortSTL : public ppc::core::Task {
   std::vector<int> input_, output_;
   int max_value_{};
 };
+
 }  // namespace mezhuev_m_bitwise_integer_sort_stl
