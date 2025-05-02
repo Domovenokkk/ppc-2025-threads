@@ -2,7 +2,9 @@
 
 #include <algorithm>
 #include <cmath>
-#include <iostream>
+#include <cstddef>
+#include <cstdint>
+#include <cstdlib>
 #include <memory>
 #include <vector>
 
@@ -23,8 +25,8 @@ TEST(mezhuev_m_bitwise_integer_sort_stl, PreProcessingTest) {
 
   ASSERT_TRUE(sort_task.PreProcessingImpl());
 
-  EXPECT_EQ(sort_task.getInput(), input);
-  EXPECT_EQ(sort_task.getMaxValue(), 5);
+  EXPECT_EQ(sort_task.GetInput(), input);
+  EXPECT_EQ(sort_task.GetMaxValue(), 5);
 }
 
 TEST(mezhuev_m_bitwise_integer_sort_stl, ValidationTest) {
@@ -57,7 +59,7 @@ TEST(mezhuev_m_bitwise_integer_sort_stl, RunTest) {
   sort_task.PreProcessingImpl();
   sort_task.RunImpl();
 
-  EXPECT_EQ(sort_task.getOutput(), expected_output);
+  EXPECT_EQ(sort_task.GetOutput(), expected_output);
 }
 
 TEST(mezhuev_m_bitwise_integer_sort_stl, PostProcessingTest) {
